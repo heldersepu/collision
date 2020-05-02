@@ -40,15 +40,7 @@ var Person = (function () {
     Person.prototype.update = function () {
         this.draw();
         this.keepDistance();
-        for (var i = 0; i < people.length; i++) {
-            var dist = distance(mouse.x, mouse.y, people[i].x, people[i].y) - this.radius;
-            if (dist <= 100) {
-                let m = new Person(mouse.x, mouse.y, 100);
-                //TODO set proper velocity
-                m.velocity = { x: 2, y: 2 };
-                resolveCollision(m, people[i]);
-            }
-        }
+
         if (this._x - this.radius < 0 || this._x + this.radius > canvas.width) {
             this.velocity.x *= -1;
         }
@@ -66,6 +58,13 @@ var Person = (function () {
             if (dist <= 0) {
                 resolveCollision(this, people[i]);
             }
+        }
+        var dist = distance(mouse.x, mouse.y, this.x, this.y) - this.radius;
+        if (dist <= 100) {
+            let m = new Person(mouse.x, mouse.y, 100);
+            //TODO set proper velocity
+            m.velocity = { x: 2, y: 2 };
+            resolveCollision(m, this);
         }
     };
     return Person;
