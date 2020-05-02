@@ -32,7 +32,6 @@ function init() {
                 }
             }
         }
-        people.push(new Person(mouse.x, mouse.y, 10));
         people.push(new Person(x, y, radius));
     }
 }
