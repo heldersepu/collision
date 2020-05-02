@@ -41,10 +41,12 @@ var Person = (function () {
         this.draw();
         this.keepDistance();
         for (var i = 0; i < people.length; i++) {
-            var dist = distance(mouse.x, mouse.y, people[i].x, people[i].y) - 6 * this.radius;
-            if (dist <= 0) {
-                people[i].x += (mouse.x > people[i].x + this.radius) ? -1 : 1;
-                people[i].y += (mouse.y > people[i].y + this.radius) ? -1 : 1;
+            var dist = distance(mouse.x, mouse.y, people[i].x, people[i].y) - this.radius;
+            if (dist <= 100) {
+                let m = new Person(mouse.x, mouse.y, 100);
+                //TODO set proper velocity
+                m.velocity = { x: 2, y: 2 };
+                resolveCollision(m, people[i]);
             }
         }
         if (this._x - this.radius < 0 || this._x + this.radius > canvas.width) {
@@ -60,7 +62,7 @@ var Person = (function () {
         for (var i = 0; i < people.length; i++) {
             if (people[i] === this)
                 continue;
-            var dist = distance(this._x, this._y, people[i].x, people[i].y) - 4 * this.radius;
+            var dist = distance(this._x, this._y, people[i].x, people[i].y) - (this.radius + people[i].radius);
             if (dist <= 0) {
                 resolveCollision(this, people[i]);
             }

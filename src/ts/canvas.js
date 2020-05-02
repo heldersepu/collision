@@ -11,7 +11,7 @@ function init() {
     canvas.width = 1300;
     canvas.height = 800;
     for (var i = 0; i < 100; i++) {
-        var radius = 10;
+        var radius = randomIntFromRange(10, 18);
         var x = randomIntFromRange(radius, canvas.width - radius);
         var y = randomIntFromRange(radius, canvas.height - radius);
         if (i !== 0) {
